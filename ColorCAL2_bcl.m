@@ -1,4 +1,4 @@
-function [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(command,samples,myCorrectionMatrix,ColorCALIICDCPort)
+function [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(command,samples,myCorrectionMatrix)
 
 % useage:
 %
@@ -28,10 +28,6 @@ function [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(command,samples,myCorrectio
 %
 % [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl('measure',1,myCorrectionMatrix);
 %
-% or
-%
-% [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl('measure',1,myCorrectionMatrix,portAddress);
-%
 % Shows how to make measurements using the ColorCAL II CDC interface.
 % This script calls several other separate functions which are included
 % below.
@@ -41,8 +37,6 @@ function [CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(command,samples,myCorrectio
 %
 %
 % revised by yang 2017/9/23 17:46:33
-% 1) replaced the serial with IOPort to add support for linux
-% 2) added a arg 'ColorCALIICDCPort' to specify the port address directly!
 
 if nargin < 1
     helpStr = { 'useage: '
@@ -73,9 +67,6 @@ if nargin < 1
         ' '
         '[CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(''measure'',1,myCorrectionMatrix); '
         ' '
-        'or  '
-        ' '
-        '[CIExyY,myCorrectionMatrix] = ColorCAL2_bcl(''measure'',1,myCorrectionMatrix,portAddress); '
         ' '
         'Shows how to make measurements using the ColorCAL II CDC interface. '
         'This script calls several other separate functions which are included '
@@ -85,9 +76,7 @@ if nargin < 1
         'represents a different measurement). '
         ' '
         ' '
-        'revised by yang 2017/9/23 17:46:33 '
-        '1) replaced the serial with IOPort to add support for linux '
-        '2) added a arg ''ColorCALIICDCPort'' to specify the port address directly!'};
+        'revised by yang 2017/9/23 17:46:33 '};
     
     for iRow = 1:numel(helpStr)
         disp(helpStr{iRow});
@@ -112,27 +101,9 @@ if ~exist('myCorrectionMatrix','var')||isempty(myCorrectionMatrix)
     myCorrectionMatrix = [];
 end
 
-
-if ~exist('ColorCALIICDCPort','var')||isempty(ColorCALIICDCPort)
-    ColorCALIICDCPort = [];
-end
-
-
 CIExyY = [];
 
-% if isempty(ColorCALIICDCPort)
-%     %------ get the address of the hardware -------/
-%     if ispc
-%         ColorCALIICDCPort = 'COM3';
-%     elseif IsLinux
-%         ColorCALIICDCPort = '/dev/ttyACM0';
-%     elseif ismac
-%         ColorCALIICDCPort = '/dev/tty.usbmodem0001';
-%     end
-%     %----------------------------------------------\
-% end
 
-% fprintf('PortAdress: %s\n',ColorCALIICDCPort);
 
 if strcmpi(command(1),'i')||isempty(myCorrectionMatrix)
     % First, the ColorCAL II should have its zero level calibrated. This can
@@ -145,7 +116,6 @@ if strcmpi(command(1),'i')||isempty(myCorrectionMatrix)
     
     % This is a separate function (see further below in this script) that will
     % calibrate the ColorCAL II's zero level (i.e. the value for no light).
-    % ColorCALIIZeroCalibrate(ColorCALIICDCPort);
     ColorCal2('ZeroCalibration');
     % Confirm the calibration is complete. Position the ColorCAL II to take a
     % measurement from the screen.
@@ -158,7 +128,6 @@ if strcmpi(command(1),'i')||isempty(myCorrectionMatrix)
     % Obtains the XYZ colour correction matrix specific to the ColorCAL II
     % being used, via the CDC port. This is a separate function (see further
     % below in this script).
-    % myCorrectionMatrix = getColorCALIICorrectionMatrix(ColorCALIICDCPort);
     myCorrectionMatrix = ColorCal2('ReadColorMatrix');
     myCorrectionMatrix = myCorrectionMatrix(1:3,:);
 end % added by yang
