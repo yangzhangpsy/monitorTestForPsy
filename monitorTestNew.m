@@ -5,6 +5,10 @@ function [eventBins,foundMarkers,epochedData,baselineRange,beplotedX] = monitorT
 % cntfilename   [string]:  full filename of the cnt file, e,g,. 'C:/test1.cnt'
 % nframes       [double]:  defined the number of stim frames 
 % ifi           [double]:  monitor inter-refresh interval in msec (e.g., 1000/120 for a refresh rate of 120 Hz)
+% Written by Yang Zhang, Soochow Univeristy
+% zhangyang873@gmail.com
+% if you do think this function is usefull and use it in your research, please cite our paper:
+% Zhang GL, Li AS, Miao CG, He X, Zhang M, Zhang Y.(2018) A consumer-grade LCD monitor for precise visual stimulation. Behav Res Methods. 50(4):1496-1502. doi: 10.3758/s13428-018-1018-7.
 
 if ~exist('nframes','var')||isempty(nframes)
 	nframes = 4;
