@@ -17,7 +17,7 @@ function [NIData] = monitorTest_NI(targetRect,targetColor,loopNum,bkColor)
 % Written by Yang Zhang Tue May 22 20:08:12 2018
 % Soochow University, China
 % if you do think this function is usefull and use it in your research, please cite our paper:
-% Zhang GL, Li AS, Miao CG, He X, Zhang M, Zhang Y.(2018) A consumer-grade LCD monitor for precise visual stimulation. Behav Res Methods. doi: 10.3758/s13428-018-1018-7.
+% Zhang GL, Li AS, Miao CG, He X, Zhang M, Zhang Y.(2018) A consumer-grade LCD monitor for precise visual stimulation. Behav Res Methods. 50(4):1496-1502. doi: 10.3758/s13428-018-1018-7.
 
 if ~exist('targetRect','var')||isempty(targetRect)
     targetRect = [0 0 200 200];
