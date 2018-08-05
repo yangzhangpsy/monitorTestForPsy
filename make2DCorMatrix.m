@@ -8,9 +8,11 @@ function [spatialCorrM,Xi,Yi,x,y,z] = make2DCorMatrix(xyLum,h,v,method,exptraMet
 % h:            [1] double: number of horizontal lines of the screen e.g., 768
 % v:            [1] double: number of vertical lines of the screen e.g., 1024
 % method         [string] : interploate/extrapolate method e.g., 'spline'
- % Written by Yang Zhang Jan 01 14:49:54 2018
- % Soochow University, China
- %  zhangyang873@gmail.com
+% Written by Yang Zhang Jan 01 14:49:54 2018
+% Soochow University, China
+%  zhangyang873@gmail.com
+% if you do think this function is usefull and use it in your research, please cite our paper:
+% Zhang GL, Li AS, Miao CG, He X, Zhang M, Zhang Y.(2018) A consumer-grade LCD monitor for precise visual stimulation. Behav Res Methods. 50(4):1496-1502. doi: 10.3758/s13428-018-1018-7.
 
 
 if ~exist('method','var')||isempty(method)
